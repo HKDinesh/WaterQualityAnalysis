@@ -1,0 +1,5 @@
+/.idea
+*.zip
+*.tar.gz
+/__pycache__
+/.vscode
