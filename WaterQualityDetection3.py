@@ -236,17 +236,16 @@ class WaterQualityDetection:
             water_data.S1 == 0, ['temperature', 'pH', 'EC', 'ORP', 'DO', 'turbidity', 'transparency', 'COD', 'P',
                                  'NH3N', 'flux', 'testtime', 'siteno']]
         D.index = D['testtime']
-        D_month = list(D['testtime'].dt.strftime('%Y-%m').unique())
-        D = D.drop(['testtime'], axis=1)
 
         CorrData = self.Graph1
         for i in water_data.siteno.unique():
 
             SitenoT = D[D.siteno.isin([i])]
+            new_d_month = list(SitenoT['testtime'].dt.strftime('%Y-%m').unique())
             SitenoT = SitenoT[
                 ['temperature', 'pH', 'EC', 'ORP', 'DO', 'turbidity', 'transparency', 'COD', 'P', 'NH3N', 'flux']]
             Site = {}
-            for j in D_month:
+            for j in new_d_month:
                 Site[j] = SitenoT[j].corr()
             CorrData[i] = Site
 
@@ -256,18 +255,17 @@ class WaterQualityDetection:
         D = water_data[['S1', 'S2', 'S3', 'testtime', 'siteno']]
 
         D.index = D['testtime']
-        D_month = list(D['testtime'].dt.strftime('%Y-%m').unique())
-        D = D.drop(['testtime'], axis=1)
 
         Summary = self.Graph2
 
         for i in water_data.siteno.unique():
 
             SitenoT = D[D.siteno.isin([i])]
+            new_d_month = list(SitenoT['testtime'].dt.strftime('%Y-%m').unique())
             SitenoT = SitenoT[['S1', 'S2', 'S3']]
 
             Site = {}
-            for j in D_month:
+            for j in new_d_month:
                 Site[j] = SitenoT[j].sum(axis=0)  # 这里有问题，待修正
             Summary[i] = Site
 
@@ -298,18 +296,17 @@ class WaterQualityDetection:
         D = D.apply(Anomaly_Count, axis=1)
 
         D.index = D['testtime']
-        D_month = list(D['testtime'].dt.strftime('%Y-%m').unique())
-        D = D.drop(['testtime'], axis=1)
 
         Summary1 = self.Graph3
         for i in water_data.siteno.unique():
 
             SitenoT = D[D.siteno.isin([i])]
+            new_d_month = list(SitenoT['testtime'].dt.strftime('%Y-%m').unique())
             SitenoT = SitenoT[
                 ['temperature', 'pH', 'EC', 'ORP', 'DO', 'turbidity', 'transparency', 'COD', 'P', 'NH3N', 'flux']]
 
             Site = {}
-            for j in D_month:
+            for j in new_d_month:
                 Site[j] = SitenoT[j].sum(axis=0)
             Summary1[i] = Site
 
