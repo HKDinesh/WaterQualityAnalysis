@@ -267,6 +267,7 @@ class WaterQualityDetection:
             Site = {}
             for j in new_d_month:
                 Site[j] = SitenoT[j].sum(axis=0)  # 这里有问题，待修正
+            #     当数据有空数据的时候，可能出错并停止运行
             Summary[i] = Site
 
     def graph3(self):
@@ -451,7 +452,7 @@ class WaterQualityDetection:
     def write_to_mongodb(self):
         my_client_name = 'water'
         my_db_name = 'waterAndAD'
-        my_client = pymongo.MongoClient("mongodb://inesa_water:inesa2019@10.200.43.91:27017")
+        my_client = pymongo.MongoClient("mongodb://inesa_water:inesa2019@210.14.69.108:27017")
         my_db = my_client[my_client_name]
         my_col = my_db[my_db_name]
         water_data_pre_list = json.loads(self.water_data_2.T.to_json()).values()

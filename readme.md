@@ -11,3 +11,7 @@ This project is for INESA Water Analysis,
 2020-07-24 经过查询确认当前前端连接的数据都在210.*.*.108而不是210.*.*.81服务器上，也不在91的服务器上
 
 2020-07-24 修复分析过程产生的假json的bug，目前当成json的list处理
+
+1. waterDataToMongodb.py文件是处理数据的主要文件
+
+2. WaterQualityDetection3.py是 class，不直接运行，通过waterDataToMongodb调用
